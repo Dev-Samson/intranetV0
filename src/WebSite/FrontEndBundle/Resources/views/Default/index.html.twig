@@ -1,0 +1,130 @@
+{% extends "WebSiteFrontEndBundle::base_layout.html.twig" %}
+
+{% block body %}
+        <div class="row " >
+		  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 bg-white row1">
+			  <ul class="bxslider">
+                                {% if imagesSlider|length <=0 %}
+                                    <li><img src="{{asset('slider/slide-03.jpg')}}" title="Hrinsight" /><!--<span class="text-imageSlider">Cérémonie de remise des Trophées des femmes de l'économie </span>--></li>
+				  <li><img src="{{asset('slider/slide-02.jpg')}}" title="Hrinsight" /></li>
+				  <li><img src="{{asset('slider/slide-01.jpg')}}" title="Hrinsight" /></li>
+                                {%elseif imagesSlider|length ==1%}
+                                <li><img src="{{asset('slider/'~imagesSlider[0].path)}}" title="{{imagesSlider[0].name}}" />{% if imagesSlider[0].text is not null %}<a target="_blank" href="{% if imagesSlider[0].link is not null %} {{imagesSlider[0].link}} {%else %}#{%endif%}"><span class="text-imageSlider">{{imagesSlider[0].text}}</span></a>{% endif %}</li>
+                                    <li><img src="{{asset('slider/'~imagesSlider[0].path)}}" title="{{imagesSlider[0].name}}" />{% if imagesSlider[0].text is not null %}<a target="_blank" href="{% if imagesSlider[0].link is not null %} {{imagesSlider[0].link}} {%else %}#{%endif%}"><span class="text-imageSlider">{{imagesSlider[0].text}}</span></a>{% endif %}</li>
+                                {% else %}
+                                    {% for image in imagesSlider %}
+                                    <li><img src="{{asset('slider/'~image.path)}}" title="{{image.name}}" />{% if image.text is not null %}<a target="_blank" href="{% if image.link is not null %} {{image.link}} {%else %}#{%endif%}"><span class="text-imageSlider">{{image.text}}</span></a>{% endif %}</li>
+                                    {% endfor %}
+                                {%endif%}
+			  </ul>
+			  
+			  <div class="block-transformation bg-gray col-sm-4 col-md-4 bg-white visible-md-block visible-lg-block visible-sm-block hidden-xs " id="block-transformation">
+                              <h2 class="color-orange transformation-title">la transformation <br/>digitale au service <br/> de l'entreprise</h2>
+			  </div>
+		  </div>
+		</div>
+		<div class="row  visible-xs-block hidden-sm hidden-md hidden-lg">
+			  <div class="col-xs-12 col-md-12 bg-gray">
+				<h2 class="color-orange">la transformation digitale au service de l'entreprise</h2>
+			  </div>
+		</div>
+                <div class="row">
+                    <div class="col-md-9 nopadding">
+                        <div class="row bg-white">
+                          <div class="col-md-6 decalage">
+                              <h3 class="color-white bg-orange confiance">Ensemble pour une entreprise 3.0</h3>
+                            {% for category in categories %}
+                                {%if category.description is not null  and category.display%}
+                                <h3 class="color-gray">{{category.title}}</h3>
+                                <p class="contenuCatergory">
+                                    {{category.descriptionStriptags}}
+                                    <a href="{{path('showArticle',{'title':category.title})}}"><span class="glyphicon glyphicon glyphicon-log-in color-orange" aria-hidden="true"></span></a>
+                                </p>
+                                {% endif %}
+                            {% endfor %}
+                          </div>
+                          
+                          <div class="col-md-6 bg-gray" >
+                              <div class="center centerWithoutPartner">
+                                <h3 class="h3talentRoad">Parce que vous n'êtes pas<br/> n'importe qui, construisons ensemble<br/> votre carrière</h3>
+                                <br/>
+                                <a href="{{path('fos_user_registration_register')}}"><img width="150" class="margin10" src="{{asset('bundles/websitefrontend/images/btn-rejoindre.png')}}" /></a>
+                              </div>
+                              <!--<br/><div class="center">
+                                <h3 class="color-orange">Vous rechercher des compétences?</h3>
+                                <a href="#"><img width="150" src="{{asset('bundles/websitefrontend/images/btn-rejoindre.png')}}" /></a>
+                              </div>-->
+                          </div>
+                        </div>
+                          
+                        <div class="row bg-gray">
+                          <div class="col-md-6 bg-gray decalage" >
+                                <h3 class="color-white bg-orange confiance2">Ils nous font confiances...</h3>
+                                {% for logo in logos %}
+                                    <img src="{{asset(logo.webpath)}}" class="logoPartenaire"/>
+                                {%endfor%}<br/><br/>
+                                <a href="{{path('logos')}}"><span class="glyphicon glyphicon glyphicon-log-in color-orange" style="position:absolute;right:25px;top:20px;" ></span></a>
+                          </div>
+                          <div class="col-md-6 bg-white" >
+
+                                <p class="ethique">
+                                        Parce que notre approche intègre le concept du développement durable des compétences de l'entreprise, notre démarche est empreinte de valeurs professionnelles affirmées.<br/>
+                                        <div class='divethique'>
+                                        <br/><span class="glyphicon glyphicon-check color-orange" aria-hidden="true"></span> Respect des individus<br/>
+                                        <br/><span class="glyphicon glyphicon-check color-orange" aria-hidden="true"></span> Suivi individualisé adapté aux métiers du S.I.<br/>
+                                        <br/><span class="glyphicon glyphicon-check color-orange" aria-hidden="true"></span> Authenticité et conseil
+                                        </div>
+                                </p>
+                          </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 bg-orange problemMargin" >
+			<h3>What's new in HR?</h3>
+                        
+			<div class="panel panel-default">
+                            <div class="panel-body">
+                                <div class="demo1">
+                                    {% for new in news %}
+                                    <div class="block-news news-item">
+                                        <p >
+                                        <a href="{% if new.link is not null %}{{new.link}}{%else%}{{path('showNews',{'id':new.id})}}{%endif%}" class="a-white">
+                                                <span class="block-date"><span class="jour">{{new.dateCreation|date("d")}}</span><span class="mois">{{new.dateCreation|date("M")}}</span></span>
+                                                <span class="block-title"> {{new.title}} </span>
+                                        </a>
+                                        </p>
+                                    </div>
+                                    {% endfor %}
+                                </div >
+                            </div >
+			</div >
+		  </div>
+		</div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{asset('bundles/websitefrontend/js/jquery.bootstrap.newsbox.min.js')}}"></script>
+    <script src="{{asset('bundles/websitefrontend/js/launcherNews.js')}}"></script>
+    <script >
+        $(document).ready(function(){
+           
+            var demo = $("#block-transformation");
+             AnimateRotateParameter(-360);
+            demo.animate({right:'50'},1000);
+            //demo_settings.css("right", "0");
+            demo.addClass("open");
+        });
+        
+function AnimateRotateParameter(d){
+    var elem = $("#block-transformation");
+
+    $({deg: 0}).animate({deg: d}, {
+        duration: 1000,
+        step: function(now){
+            elem.css({
+                 transform: "rotate(" + now + "deg)"
+            });
+        }
+    });
+}
+        </script>
+{% endblock %}

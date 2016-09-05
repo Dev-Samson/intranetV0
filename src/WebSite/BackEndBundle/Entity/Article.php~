@@ -1,0 +1,247 @@
+<?php
+
+namespace WebSite\BackEndBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Article
+ *
+ * @ORM\Table("WebSite_Article")
+ * @ORM\Entity(repositoryClass="WebSite\BackEndBundle\Entity\ArticleRepository")
+ */
+class Article
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="title", type="string", length=200,unique=true)
+     */
+    private $title;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="description", type="string", length=100000)
+     */
+    private $description;
+    
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="numOrder", type="integer")
+     */
+    private $numOrder;
+        
+     /**
+     * @ORM\OneToMany(targetEntity="Article", mappedBy="parent")
+     **/
+    private $childrens;
+    
+    /**
+    * @ORM\ManyToOne(targetEntity="Article", inversedBy="childrens")
+    * @ORM\JoinColumn(name="article_id", referencedColumnName="id")
+    */
+    private $parent;
+    
+    
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="display", type="boolean")
+     */
+    private $display;
+
+    public function __construct() {
+        $this->childrens = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->display = false;
+    }
+    
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set title
+     *
+     * @param string $title
+     *
+     * @return Article
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    /**
+     * Get title
+     *
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     *
+     * @return Article
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    
+
+    /**
+     * Get description
+     *
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * Set numOrder
+     *
+     * @param integer $numOrder
+     *
+     * @return Article
+     */
+    public function setNumOrder($numOrder)
+    {
+        $this->numOrder = $numOrder;
+
+        return $this;
+    }
+
+    /**
+     * Get numOrder
+     *
+     * @return integer
+     */
+    public function getNumOrder()
+    {
+        return $this->numOrder;
+    }
+
+   
+    
+    
+    public function getDescriptionStriptags()
+    {
+        return html_entity_decode(strip_tags($this->description));
+    }
+
+    /**
+     * Add children
+     *
+     * @param \WebSite\BackEndBundle\Entity\Article $children
+     *
+     * @return Article
+     */
+    public function addChildren(\WebSite\BackEndBundle\Entity\Article $children)
+    {
+        $this->childrens[] = $children;
+
+        return $this;
+    }
+
+    /**
+     * Remove children
+     *
+     * @param \WebSite\BackEndBundle\Entity\Article $children
+     */
+    public function removeChildren(\WebSite\BackEndBundle\Entity\Article $children)
+    {
+        $this->childrens->removeElement($children);
+    }
+
+    /**
+     * Get childrens
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getChildrens()
+    {
+        return $this->childrens;
+    }
+
+    /**
+     * Set parent
+     *
+     * @param \WebSite\BackEndBundle\Entity\Article $parent
+     *
+     * @return Article
+     */
+    public function setParent(\WebSite\BackEndBundle\Entity\Article $parent = null)
+    {
+        $this->parent = $parent;
+
+        return $this;
+    }
+
+    /**
+     * Get parent
+     *
+     * @return \WebSite\BackEndBundle\Entity\Article
+     */
+    public function getParent()
+    {
+        return $this->parent;
+    }
+    
+    public function __toString() {
+        return $this->title;
+    }
+
+    /**
+     * Set display
+     *
+     * @param boolean $display
+     *
+     * @return Article
+     */
+    public function setDisplay($display)
+    {
+        $this->display = $display;
+
+        return $this;
+    }
+
+    /**
+     * Get display
+     *
+     * @return boolean
+     */
+    public function getDisplay()
+    {
+        return $this->display;
+    }
+}

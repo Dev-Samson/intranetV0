@@ -1,0 +1,52 @@
+{% extends "IntranetAppBundle::base.html.twig" %}
+
+{%block page_header %}Listes des candidats acceptés{%endblock%}
+{%block page_description %}Liste des profils validés{%endblock%}
+
+{% block body -%}
+    
+    <div class="row">
+        <div class="col-md-6">
+        
+            <div class="box">
+                <div class="box-header">
+                  <h3 class="box-title">Candidats acceptés</h3>
+                </div><!-- /.box-header -->
+                <div class="box-body no-padding">
+                  <table class="table table-striped">
+                    <tbody><tr>
+                      <th>Prénom</th>
+                      <th>Nom</th>
+                      <th>Date de naissance</th>
+                      <th>Action</th>
+                    </tr>
+                    
+                    {%for user in users%}
+                            <tr>
+                              <td>{{user.Firstname}}</td>
+                              <td>{{user.Lastname}}</td>
+                              <td>
+                                {{user.dateofbirth|date('d/m/Y')}}
+                              </td>
+                              <td><a href="{{path('intranet_cv_candidat_show',{'id':user.id})}}">Voir</a></td>
+                            </tr>
+                    {% endfor %}
+                    
+                  </tbody></table>
+                </div><!-- /.box-body -->
+              </div>
+        
+        </div>
+                    
+        <div class="col-md-6">
+            <form method="POST" action="{{path('intranet_cv_candidat_list')}}">
+                {{ form_rest(form) }}
+            </form>
+        </div>
+    </div>
+    
+    
+    
+    
+    
+{%endblock%}

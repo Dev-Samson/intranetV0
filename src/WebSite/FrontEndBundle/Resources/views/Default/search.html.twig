@@ -1,0 +1,16 @@
+{% extends "WebSiteFrontEndBundle::base.html.twig" %}
+
+{% block body_base %}
+    <h1>Recherche: {{search}}</h1>
+    <span>Nombres d'articles: {{articles|length}}</span><br/><br/>
+    {% for article in articles %}
+        - <a href="{{path('showArticle',{'title':article.title})}}">{{article.title}}</a><br/>
+    {% endfor %}<br/><br/>
+    <span>Actualités: {{news|length}}</span><br/><br/>
+    {% for new in news %}
+        - <a href="{{path('showNews',{'id':new.id})}}">{{new.title}}</a> <br/>
+    {% endfor %}
+{% endblock %}
+
+{% block item_base %}
+{% endblock %}

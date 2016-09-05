@@ -1,0 +1,17 @@
+services:
+    application_user.admin.user:
+        class: Application\UserBundle\Admin\UserAdmin
+        arguments: [~, Application\UserBundle\Entity\User, ApplicationUserBundle:UserAdmin]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: admin, label: User}
+    app.form.registration:
+        class: Application\UserBundle\Form\RegistrationType
+        arguments: ["@request_stack"]
+        tags:
+            - { name: form.type, alias: app_user_registration }
+            
+    app.form.registration.handler:
+        class: Application\UserBundle\Form\Handler\RegistrationFormHandler
+        arguments: ["@fos_user.registration.form", "@request", "@fos_user.user_manager", "@fos_user.mailer","@fos_user.util.token_generator"]
+        scope: request
+        public: false

@@ -1,0 +1,14 @@
+{% extends "WebSiteFrontEndBundle::base.html.twig" %}
+
+{% block body_base %}
+    <div id="content" role="main">
+        <div class="page type-page status-publish hentry">
+            <h1 class="entry-title"> {{news.title}}</h1>
+					
+            <div class="entry-content">
+                {{news.description|raw}}
+            </div><!-- .entry-content -->
+	</div><!-- #post-## -->
+		    
+    </div>
+{% endblock %}

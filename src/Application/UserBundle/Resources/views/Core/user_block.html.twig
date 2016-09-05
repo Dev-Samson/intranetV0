@@ -1,0 +1,15 @@
+{% block user_block %}
+    {% if app.user %}
+        <span id="askActionUser">Que souhaitez-vous faire {{app.user.username}} ?</span>
+        <legend id="legendAskUser"></legend>
+
+        {% if is_granted('ROLE_PREVIOUS_ADMIN') and sonata_user.impersonating %}
+            <a href="{{ url(sonata_user.impersonating.route, sonata_user.impersonating.parameters| merge({'_switch_user': '_exit'})) }}">(exit)</a>
+        {% endif %}
+        <div id="actionuser">
+            <a href="{{path('homepage')}}"><div><img src="{{asset('bundles/applicationuser/images/home.png')}}" width="35" alt="retour"/><span>Retour SiteWeb</span></div></a>
+            <a href="{{path('intranet_homepage')}}"><div><img src="{{asset('bundles/applicationuser/images/home.png')}}" width="35" alt="retour"/><span>Retour Intranet</span></div></a>
+            <a href="{{path('fos_user_security_logout')}}"><div><img src="{{asset('bundles/applicationuser/images/exit.png')}}" width="35" alt="deco"/><span>{{ 'logout'|trans({}) }}</span></div></a>
+        </div>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends "ApplicationUserBundle::layout_login.html.twig" %}
+
+{% trans_default_domain 'FOSUserBundle' %}
+{% block body %} 
+        <div class="col-md-3">
+            
+        </div>
+        <div class="col-md-6">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Confirmation</h3>
+                </div><!-- /.box-header -->
+                <div class="box-body">
+                    <p>
+                    {{ 'resetting.check_email'|trans({'%email%': email}, 'FOSUserBundle') }}
+                    </p>
+                    <a href="{{path('intranet_homepage')}}" ><button type="button" class="btn btn-primary btn-block btn-flat" >Se connecter</button></a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            
+        </div>
+{% endblock %}

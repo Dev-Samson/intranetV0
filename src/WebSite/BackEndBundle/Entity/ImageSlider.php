@@ -1,0 +1,368 @@
+<?php
+
+namespace WebSite\BackEndBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Validator\Constraints as Assert;
+
+/**
+ * ImageSlider
+ *
+ * @ORM\Table("WebSite_imageSlider")
+ * @ORM\Entity(repositoryClass="WebSite\BackEndBundle\Entity\ImageSliderRepository")
+ * @ORM\HasLifecycleCallbacks
+ */
+class ImageSlider
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="name", type="string", length=100)
+     */
+    private $name;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="path", type="string", length=255)
+     */
+    private $path;
+    
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="dateCreation", type="datetime")
+     */
+    private $dateCreation;
+    
+    
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="dateFin", type="datetime")
+     */
+    private $dateFin;
+    
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="text", type="string", length=100,nullable=true)
+     */
+    private $text;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="link", type="string", length=255,nullable=true)
+     */
+    private $link;
+    
+    
+    /**
+     * L'attribut permettant de transférer les images au serveur
+     * @Assert\Image(
+     *      mimeTypes = {"image/png","image/jpeg","image/jpg"},
+     *      mimeTypesMessage = "Not valid. only png file",
+     *      maxSize = "10M",
+     *      maxSizeMessage = "Too big. <10M"
+     * )
+     */
+    private $file;
+
+    public function __construct() {
+        $this->dateCreation = new \DateTime();
+        $this->dateFin = (new \DateTime())->modify('+1 month');
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     *
+     * @return ImageSlider
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set path
+     *
+     * @param string $path
+     *
+     * @return ImageSlider
+     */
+    public function setPath($path)
+    {
+        $this->path = $path;
+
+        return $this;
+    }
+
+    /**
+     * Get path
+     *
+     * @return string
+     */
+    public function getPath()
+    {
+        return $this->path;
+    }
+    
+    /**
+     * Set link
+     *
+     * @param string $link
+     *
+     * @return ImageSlider
+     */
+    public function setLink($link)
+    {
+        $this->link = $link;
+
+        return $this;
+    }
+
+    /**
+     * Get link
+     *
+     * @return string
+     */
+    public function getLink()
+    {
+        return $this->link;
+    }
+
+    /**
+     * Set dateCreation
+     *
+     * @param \DateTime $dateCreation
+     *
+     * @return ImageSlider
+     */
+    public function setDateCreation($dateCreation)
+    {
+        $this->dateCreation = $dateCreation;
+
+        return $this;
+    }
+
+    /**
+     * Get dateCreation
+     *
+     * @return \DateTime
+     */
+    public function getDateCreation()
+    {
+        return $this->dateCreation;
+    }
+    
+    /**
+     * Set dateFin
+     *
+     * @param \DateTime $dateFin
+     *
+     * @return ImageSlider
+     */
+    public function setDateFin($dateFin)
+    {
+        $this->dateFin = $dateFin;
+
+        return $this;
+    }
+
+    /**
+     * Get dateFin
+     *
+     * @return \DateTime
+     */
+    public function getDateFin()
+    {
+        return $this->dateFin;
+    }
+    
+    
+    
+    /*********** Methode d'upload pour le Logo ***************/
+    /**
+    * Sets file.
+    *
+    * @param UploadedFile $file
+    */
+    public function setFile(UploadedFile $file = null)
+    {
+        $this->file = $file;
+    }
+
+    /**
+     * Get file.
+     *
+     * @return UploadedFile
+     */
+    public function getFile()
+    {
+        return $this->file;
+    }
+    
+    /**
+     * @ORM\PrePersist()
+     * @ORM\PreUpdate()
+     */
+    public function preUpload()
+    {
+        if (null !== $this->getFile()) {
+            // faites ce que vous voulez pour générer un nom unique
+            $this->path = sha1(uniqid(mt_rand(), true)).'.'.$this->getFile()->guessExtension();
+        }
+    }
+    
+    /**
+     * Manages the copying of the file to the relevant place on the server
+     * @ORM\PostPersist()
+     * @ORM\PostUpdate()
+     */
+    public function upload()
+    {
+        // the file property can be empty if the field is not required
+        if (null === $this->getFile()) {
+            return;
+        }
+        
+        // we use the original file name here but you should
+        // sanitize it at least to avoid any security issues
+
+        // move takes the target directory and target filename as params
+        $this->getFile()->move(
+            $this->getUploadRootDir(),
+            $this->path
+        );
+
+        // set the path property to the filename where you've saved the file
+        //$this->path = $this->getFile()->getClientOriginalName();
+
+        // clean up the file property as you won't need it anymore
+        $this->setFile(null);
+    }
+
+    /**
+     * Lifecycle callback to upload the file to the server
+     */
+    public function lifecycleFileUpload() {
+        $this->upload();
+    }
+
+    /**
+     * Updates the hash value to force the preUpdate and postUpdate events to fire
+     */
+    public function refreshUpdated() {
+        $this->removeUpload();
+        $this->preUpload();
+    }
+    /**
+     * Permet d'obtenir le chemin absolu du dossier d'upload
+     * @return string le chemin 
+     */
+    protected function getUploadRootDir()
+    {
+        // le chemin absolu du répertoire où les documents uploadés doivent être sauvegardés
+        return __DIR__.'/../../../../web/'.$this->getUploadDir();
+    }
+    
+    /**
+     * Permet d'obtenir le chemin absolu de l'image
+     * @return string le chemin absolu de l'image
+     */
+    public function getAbsolutePath()
+    {
+        return null === $this->path ? null : $this->getUploadRootDir().'/'.$this->path;
+    }
+
+    /**
+     * Permet d'obtenir le chemin relatif de l'image
+     * @return string le chemin relatif
+     */
+    public function getWebPath()
+    {
+        return null === $this->path ? null : $this->getUploadDir().'/'.$this->path;
+    }
+    
+    /**
+     * Obtenir le dossier d'upload
+     * @return string le dossier
+     */
+    protected function getUploadDir()
+    {
+        return 'slider';
+    }
+    
+    /**
+     * Permet de supprimer l'image précédente (si elle existe) lors du nouvel upload
+     * @ORM\PostRemove()
+     */
+    public function removeUpload()
+    {
+        if ($file = $this->getAbsolutePath()) {
+            if(file_exists($file))
+                unlink($file);
+        }
+    }
+
+    /**
+     * Set text
+     *
+     * @param string $text
+     *
+     * @return ImageSlider
+     */
+    public function setText($text)
+    {
+        $this->text = $text;
+
+        return $this;
+    }
+
+    /**
+     * Get text
+     *
+     * @return string
+     */
+    public function getText()
+    {
+        return $this->text;
+    }
+}

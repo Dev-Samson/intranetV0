@@ -1,0 +1,163 @@
+{% extends "IntranetAppBundle::base.html.twig" %}
+
+{%block page_header %}Profil{%endblock%}
+{%block page_description %}Création de votre profil professionel{%endblock%}
+
+{% block body -%}
+    <div class="row">
+        <div class="col-md-12">
+              <!-- Horizontal Form -->
+              <div class="box box-info">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Creation Profil</h3>
+                </div><!-- /.box-header -->
+                <!-- form start -->
+                 {{ form_start(form, {'attr':{'class': 'form-horizontal'} }) }}
+                  <div class="box-body">
+                   
+                    <div class="form-group">
+                        <h3><label class="col-sm-2 control-label">Expériences</label></h3>
+                        <div class="col-sm-8">
+                            <ul class="experiences"  data-prototype="
+                                <div class='form-group'>{{ form_label(form.experiences.vars.prototype.title)|e }}
+                                <div class='col-sm-10'>{{ form_widget(form.experiences.vars.prototype.title)|e }}</div></div>
+                                <div class='form-group'>{{ form_label(form.experiences.vars.prototype.start)|e }}
+                                <div class='col-sm-10'>{{ form_widget(form.experiences.vars.prototype.start)|e }}</div></div>
+                                <div class='form-group'>{{ form_label(form.experiences.vars.prototype.end)|e }}
+                                <div class='col-sm-10'>{{ form_widget(form.experiences.vars.prototype.end)|e }}</div></div>
+                                <div class='form-group'>{{ form_label(form.experiences.vars.prototype.sector)|e }}
+                                <div class='col-sm-10'>{{ form_widget(form.experiences.vars.prototype.sector)|e }}</div></div>
+                                <div class='form-group'>{{ form_label(form.experiences.vars.prototype.professionalFunction)|e }}
+                                <div class='col-sm-10'>{{ form_widget(form.experiences.vars.prototype.professionalFunction)|e }}</div></div>
+                                ">
+                                {# iterate over each existing tag and render its only field: name #}
+                                {% for experience in form.experiences %}
+                                    <li>{{ form_row(experience.title) }}</li>
+                                    <li>{{ form_row(experience.start) }}</li>
+                                    <li>{{ form_row(experience.end) }}</li>
+                                    <li>{{ form_row(experience.sector) }}</li>
+                                    <li>{{ form_row(experience.professionalFunction) }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                   </div>
+                    
+                    <div class="form-group">
+                        <h3><label class="col-sm-2 control-label">Studies</label></h3>
+                        <div class="col-sm-8">
+                        <ul class="studies"  data-prototype="
+                                <div class='form-group'>{{ form_label(form.studies.vars.prototype.title)|e }}
+                                <div class='col-sm-10'>{{ form_widget(form.studies.vars.prototype.title)|e }}</div></div>
+                                <div class='form-group'>{{ form_label(form.studies.vars.prototype.graduationDate)|e }}
+                                <div class='col-sm-10'>{{ form_widget(form.studies.vars.prototype.graduationDate)|e }}</div></div>
+                                <div class='form-group'>{{ form_label(form.studies.vars.prototype.level)|e }}
+                                <div class='col-sm-10'>{{ form_widget(form.studies.vars.prototype.level)|e }}</div></div>
+                            ">
+                            {# iterate over each existing tag and render its only field: name #}
+                            {% for study in form.studies %}
+                                <li>{{ form_row(study.title) }}</li>
+                                <li>{{ form_row(study.graduationDate) }}</li>
+                                <li>{{ form_row(study.level) }}</li>
+                            {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <h3><label class="col-sm-2 control-label">Languages</label></h3>
+                        <div class="col-sm-8">
+                        <ul class="languages"  data-prototype="
+                                <div class='form-group'>{{ form_label(form.languages.vars.prototype.language)|e }}
+                                <div class='col-sm-10'>{{ form_widget(form.languages.vars.prototype.language)|e }}</div></div>
+                                <div class='form-group'>{{ form_label(form.languages.vars.prototype.level)|e }}
+                                <div class='col-sm-10'>{{ form_widget(form.languages.vars.prototype.level)|e }}</div></div>
+                            ">
+                            {# iterate over each existing tag and render its only field: name #}
+                            {% for language in form.languages %}
+                                <li>{{ form_row(language.language) }}</li>
+                                <li>{{ form_row(language.level) }}</li>
+                            {% endfor %}
+                        </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        {{form_label(form.desiredSalary)}}
+                        <div class="col-sm-8">
+                            <div class="input-group">
+                             <span class="input-group-addon">€</span>
+                            {{ form_widget(form.desiredSalary) }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {{form_label(form.disponibility)}}
+                        <div class="col-sm-8">
+                            {{ form_widget(form.disponibility) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {{form_label(form.professionalStatus)}}
+                        <div class="col-sm-8">
+                            {{ form_widget(form.professionalStatus) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {{form_label(form.typeContract)}}
+                        <div class="col-sm-8">
+                            {{ form_widget(form.typeContract) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {{form_label(form.natureContract)}}
+                        <div class="col-sm-8">
+                            {{ form_widget(form.natureContract) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {{form_label(form.mobility)}}
+                        <div class="col-sm-8">
+                            {{ form_widget(form.mobility) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {{form_label(form.skills)}}
+                        <div class="col-sm-8">
+                            {{ form_widget(form.skills) }}
+                        </div>
+                    </div>
+                    {{ form_widget(form._token) }}
+                    {%do form.experiences.setRendered(true)%} 
+                    {%do form.studies.setRendered(true)%} 
+                    {%do form.languages.setRendered(true)%}
+                    
+                  </div><!-- /.box-body -->
+                  <div class="box-footer">
+                    {{ form_widget(form.submit,{'attr':{'class':'btn btn-info pull-right'} }) }}
+                  </div><!-- /.box-footer -->
+                 {{ form_end(form) }}
+              </div><!-- /.box -->
+              
+            </div>
+    </div>
+    
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{asset('bundles/intranetapp/css/adminLTE/plugins/datepicker/datepicker3.css')}}">
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript" src="{{asset('bundles/intranetcv/js/profile.js')}}"> </script>
+    <script type="text/javascript" src="{{asset('bundles/intranetapp/js/adminLTE/plugins/datepicker/bootstrap-datepicker.js')}}"> </script>
+    <script type="text/javascript" src="{{asset('bundles/intranetapp/js/adminLTE/plugins/datepicker/bootstrap-datepicker.fr.js')}}"> </script>
+    <script type="text/javascript" >
+       
+        $( document).delegate( ".datepicker","focusin", function() {
+           $(this).datepicker({
+               format: 'dd/mm/yyyy',
+           });
+        });
+        
+    
+    </script>
+{% endblock %}

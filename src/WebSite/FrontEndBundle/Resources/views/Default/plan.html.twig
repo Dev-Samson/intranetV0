@@ -1,0 +1,42 @@
+{% extends "WebSiteFrontEndBundle::base.html.twig" %}
+
+{% block body_base %}
+            <div id="post-31" class="post-31 page type-page status-publish hentry">
+                <h1 class="entry-title">Plan du site</h1>
+                <div class="entry-content"></div><!-- .entry-content -->
+            </div>
+            <ul>
+                <li class="page_item"><a href="http://www.hr-itconsulting.com/">Accueil</a></li>
+            </ul>
+            {{ _self.recursiveList(articles) }}
+{% endblock %}
+
+
+{% macro recursiveList(objects, parent) %}
+
+    {% set _hit = false %}
+
+    {% for _item in objects %}
+
+        {% set _value = ( null != _item.parent and null != _item.parent.id ? _item.parent.id : null ) %}
+
+        {% if (parent == _value) %}
+
+            {% if not _hit %}
+                <ul class="tab">
+                {% set _hit = true %}
+            {% endif %}
+
+            <li>
+                <a href="{{path('showArticle',{'title':_item.title})}}"> {{ _item.title }}</a>
+                {{ _self.recursiveList(objects, _item.id) }}
+            </li>
+        {% endif %}
+
+    {% endfor %}
+
+    {% if _hit %}
+        </ul>
+    {% endif %}
+
+{% endmacro %}

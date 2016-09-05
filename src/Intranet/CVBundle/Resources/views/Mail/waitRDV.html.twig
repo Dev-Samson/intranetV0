@@ -1,0 +1,7 @@
+Bonjour,<br/><br/>
+{{user.firstname|capitalize}} {{user.lastname|capitalize}} est en attente d'un rendez-vous.<br/><br/>
+Vous pouvez lui donner un rendez-vous <a href="{{path('intranet_cv_appointment_update',{'id':user.id})}}" >ici</a>
+<br/><br/>
+De plus, retrouvez la liste des candidats en attente d'un rendez-vous <a href="{{path('intranet_cv_new_profil')}}" >ici</a>.
+<br/><br/>
+Cordialement.

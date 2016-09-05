@@ -1,0 +1,9 @@
+web_site_front_end:
+    resource: "@WebSiteFrontEndBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+web_site_back_end:
+    resource: "@WebSiteBackEndBundle/Controller/"
+    type:     annotation
+    prefix:   /

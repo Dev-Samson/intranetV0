@@ -1,0 +1,793 @@
+<?php
+// src/AppBundle/Entity/User.php
+
+namespace Application\UserBundle\Entity;
+
+use Sonata\UserBundle\Entity\BaseUser as BaseUser;
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * @ORM\Entity(repositoryClass="Application\UserBundle\Entity\UserRepository")
+ * @ORM\Table(name="fos_user")
+ */
+class User extends BaseUser
+{
+    /**
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    protected $id;
+
+    public function __construct()
+    {
+        parent::__construct();
+        $chaine = uniqid();
+        $this->setUsername(substr($chaine,  strlen($chaine)-6,strlen($chaine)-1));
+        $this->accept = false;
+        // your own logic
+    }
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="adress_num", type="string", length=200,nullable=true)
+     */
+    private $address_num;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="adress_build", type="string", length=200,nullable=true)
+     */
+    private $address_build;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="adress_locality", type="string", length=200,nullable=true)
+     */
+    private $address_locality;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="postal_code", type="string", length=5,nullable=true)
+     */
+    private $postal_code;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="city", type="string", length=200,nullable=true)
+     */
+    private $city;
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="accept", type="boolean")
+     */
+    private $accept;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="cellphone", type="string", length=200,nullable=true)
+     */
+    private $cellphone;
+    
+    /**
+    * @ORM\ManyToOne(targetEntity="Intranet\CVBundle\Entity\Country", inversedBy="users")
+    * @ORM\JoinColumn(name="country_id", referencedColumnName="id")
+    */
+    private $country;
+    
+    /**
+    * @ORM\OneToOne(targetEntity="Intranet\CVBundle\Entity\Profile",inversedBy="user",cascade={"persist"})
+    * @ORM\JoinColumn(name="profile_id", referencedColumnName="id")
+    */
+    private $profile;
+    
+    /**
+    * @ORM\OneToMany(targetEntity="Intranet\CalendarBundle\Entity\TimeReport", mappedBy="user", cascade={"persist","remove"})
+    */
+    protected $timereports;
+    
+    /**
+    * @ORM\OneToMany(targetEntity="Intranet\CalendarBundle\Entity\VacationRequest", mappedBy="user")
+    */
+    protected $vacations;
+    
+    
+    /**
+    * @ORM\OneToMany(targetEntity="User", mappedBy="advisor")
+    */
+    protected $candidates;
+    
+    /**
+    * @ORM\ManyToOne(targetEntity="User", inversedBy="candidates")
+    * @ORM\JoinColumn(name="advisor_id", referencedColumnName="id")
+    */
+    protected $advisor;
+    
+    /**
+    * @ORM\OneToMany(targetEntity="Intranet\CVBundle\Entity\ProposedAppointment", mappedBy="candidat", cascade={"remove", "persist"})
+    */
+    protected $appointments;
+    
+    /**
+    * @ORM\OneToOne(targetEntity="Picture",cascade={"persist"},inversedBy="user")
+    * @ORM\JoinColumn(name="picture_id", referencedColumnName="id")
+    */
+    private $picture;
+    
+    /**
+    * @ORM\OneToMany(targetEntity="\Intranet\CompanyBundle\Entity\Project", mappedBy="company", cascade={"remove", "persist"})
+    */
+    protected $companyProjects;
+        
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="profession", type="string", length=200,nullable=true)
+     */
+    private $profession;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="company", type="string", length=200,nullable=true)
+     */
+    private $company;
+    
+    /**
+    * @ORM\OneToMany(targetEntity="\Intranet\NewsBundle\Entity\News", mappedBy="user", cascade={"remove", "persist"})
+    */
+    protected $news;
+    
+    /**
+    * @ORM\OneToOne(targetEntity="\Intranet\AppBundle\Entity\Parameter", cascade={"remove", "persist"})
+    * @ORM\JoinColumn(name="parameter_id", referencedColumnName="id")
+    */
+    private $parameter;
+    
+    
+    /**
+    * @ORM\OneToMany(targetEntity="\Intranet\ActivityBundle\Entity\Activity", mappedBy="user", cascade={"persist","remove"})
+    */
+    protected $activities;
+        
+    /**
+     * Set addressNum
+     *
+     * @param string $addressNum
+     *
+     * @return User
+     */
+    public function setAddressNum($addressNum)
+    {
+        $this->address_num = $addressNum;
+
+        return $this;
+    }
+
+    /**
+     * Get addressNum
+     *
+     * @return string
+     */
+    public function getAddressNum()
+    {
+        return $this->address_num;
+    }
+
+    /**
+     * Set addressBuild
+     *
+     * @param string $addressBuild
+     *
+     * @return User
+     */
+    public function setAddressBuild($addressBuild)
+    {
+        $this->address_build = $addressBuild;
+
+        return $this;
+    }
+
+    /**
+     * Get addressBuild
+     *
+     * @return string
+     */
+    public function getAddressBuild()
+    {
+        return $this->address_build;
+    }
+
+    /**
+     * Set addressLocality
+     *
+     * @param string $addressLocality
+     *
+     * @return User
+     */
+    public function setAddressLocality($addressLocality)
+    {
+        $this->address_locality = $addressLocality;
+
+        return $this;
+    }
+
+    /**
+     * Get addressLocality
+     *
+     * @return string
+     */
+    public function getAddressLocality()
+    {
+        return $this->address_locality;
+    }
+
+    /**
+     * Set postalCode
+     *
+     * @param string $postalCode
+     *
+     * @return User
+     */
+    public function setPostalCode($postalCode)
+    {
+        $this->postal_code = $postalCode;
+
+        return $this;
+    }
+
+    /**
+     * Get postalCode
+     *
+     * @return string
+     */
+    public function getPostalCode()
+    {
+        return $this->postal_code;
+    }
+
+    /**
+     * Set city
+     *
+     * @param string $city
+     *
+     * @return User
+     */
+    public function setCity($city)
+    {
+        $this->city = $city;
+
+        return $this;
+    }
+
+    /**
+     * Get city
+     *
+     * @return string
+     */
+    public function getCity()
+    {
+        return $this->city;
+    }
+
+    /**
+     * Set cellphone
+     *
+     * @param string $cellphone
+     *
+     * @return User
+     */
+    public function setCellphone($cellphone)
+    {
+        $this->cellphone = $cellphone;
+
+        return $this;
+    }
+
+    /**
+     * Get cellphone
+     *
+     * @return string
+     */
+    public function getCellphone()
+    {
+        return $this->cellphone;
+    }
+
+    /**
+     * Set country
+     *
+     * @param \Intranet\CVBundle\Entity\Country $country
+     *
+     * @return User
+     */
+    public function setCountry(\Intranet\CVBundle\Entity\Country $country = null)
+    {
+        $this->country = $country;
+
+        return $this;
+    }
+
+    /**
+     * Get country
+     *
+     * @return \Intranet\CVBundle\Entity\Country
+     */
+    public function getCountry()
+    {
+        return $this->country;
+    }
+
+  
+
+    /**
+     * Set profile
+     *
+     * @param \Intranet\CVBundle\Entity\Profile $profile
+     *
+     * @return User
+     */
+    public function setProfile(\Intranet\CVBundle\Entity\Profile $profile = null)
+    {
+        $this->profile = $profile;
+
+        return $this;
+    }
+
+    /**
+     * Get profile
+     *
+     * @return \Intranet\CVBundle\Entity\Profile
+     */
+    public function getProfile()
+    {
+        return $this->profile;
+    }
+
+    /**
+     * Add timereport
+     *
+     * @param \Intranet\CalendarBundle\Entity\TimeReport $timereport
+     *
+     * @return User
+     */
+    public function addTimereport(\Intranet\CalendarBundle\Entity\TimeReport $timereport)
+    {
+        $this->timereports[] = $timereport;
+
+        return $this;
+    }
+
+    /**
+     * Remove timereport
+     *
+     * @param \Intranet\CalendarBundle\Entity\TimeReport $timereport
+     */
+    public function removeTimereport(\Intranet\CalendarBundle\Entity\TimeReport $timereport)
+    {
+        $this->timereports->removeElement($timereport);
+    }
+
+    /**
+     * Get timereports
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getTimereports()
+    {
+        return $this->timereports;
+    }
+
+    /**
+     * Add vacation
+     *
+     * @param \Intranet\CalendarBundle\Entity\VacationRequest $vacation
+     *
+     * @return User
+     */
+    public function addVacation(\Intranet\CalendarBundle\Entity\VacationRequest $vacation)
+    {
+        $this->vacations[] = $vacation;
+
+        return $this;
+    }
+
+    /**
+     * Remove vacation
+     *
+     * @param \Intranet\CalendarBundle\Entity\VacationRequest $vacation
+     */
+    public function removeVacation(\Intranet\CalendarBundle\Entity\VacationRequest $vacation)
+    {
+        $this->vacations->removeElement($vacation);
+    }
+
+    /**
+     * Get vacations
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getVacations()
+    {
+        return $this->vacations;
+    }
+    
+    
+   
+    /**
+     * Get Adress_num
+     * @return type string
+     */
+    public function getAdressNum()
+    {
+        return $this->address_num;
+    }
+    
+    /**
+     * Set Adress_num
+     * @return user
+     */
+    public function setAdressNum($adress_num)
+    {
+        $this->address_num=$adress_num;
+        return $this;
+    }
+    
+    /**
+     * Get address_locality
+     * @return type string
+     */
+    public function getAdressLocality()
+    {
+        return $this->address_locality;
+    }
+    
+    /**
+     * Set address_locality
+     * @return user
+     */
+    public function setAdressLocality($address_locality)
+    {
+        $this->address_locality=$address_locality;
+        return $this;
+    }
+    
+    public function getProgress()
+    {
+        $progress=0;
+        if(count($this->cvs)>0)
+            $progress+=30;
+        if($this->profile != null)
+        {
+            $progress+=10;
+            if(count($this->profile->getExperiences())>0)
+                $progress+=10;  
+            if(count($this->profile->getStudies())>0)
+                $progress+=10;  
+            if(count($this->profile->getLanguages())>0)
+                $progress+=10;  
+        }
+        if($this->city != null || $this->postal_code!=null || $this->dateOfBirth!=null)
+            $progress+=30;
+        
+        return $progress;
+    }
+    
+
+    /**
+     * Add candidate
+     *
+     * @param \Application\UserBundle\Entity\User $candidate
+     *
+     * @return User
+     */
+    public function addCandidate(\Application\UserBundle\Entity\User $candidate)
+    {
+        $this->candidates[] = $candidate;
+
+        return $this;
+    }
+
+    /**
+     * Remove candidate
+     *
+     * @param \Application\UserBundle\Entity\User $candidate
+     */
+    public function removeCandidate(\Application\UserBundle\Entity\User $candidate)
+    {
+        $this->candidates->removeElement($candidate);
+    }
+
+    /**
+     * Get candidates
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCandidates()
+    {
+        return $this->candidates;
+    }
+
+    /**
+     * Set advisor
+     *
+     * @param \Application\UserBundle\Entity\User $advisor
+     *
+     * @return User
+     */
+    public function setAdvisor(\Application\UserBundle\Entity\User $advisor = null)
+    {
+        $this->advisor = $advisor;
+
+        return $this;
+    }
+
+    /**
+     * Get advisor
+     *
+     * @return \Application\UserBundle\Entity\User
+     */
+    public function getAdvisor()
+    {
+        return $this->advisor;
+    }
+
+    /**
+     * Add appointment
+     *
+     * @param \Intranet\CVBundle\Entity\ProposedAppointment $appointment
+     *
+     * @return User
+     */
+    public function addAppointment(\Intranet\CVBundle\Entity\ProposedAppointment $appointment)
+    {
+        $appointment->setCandidat($this);
+        $this->appointments[] = $appointment;
+
+        return $this;
+    }
+
+    /**
+     * Remove appointment
+     *
+     * @param \Intranet\CVBundle\Entity\ProposedAppointment $appointment
+     */
+    public function removeAppointment(\Intranet\CVBundle\Entity\ProposedAppointment $appointment)
+    {
+        $this->appointments->removeElement($appointment);
+    }
+
+    /**
+     * Get appointments
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getAppointments()
+    {
+        return $this->appointments;
+    }
+    
+    public function __toString() {
+        if($this->firstname!=null && $this->lastname!=null)
+            return $this->firstname." ".$this->lastname;
+        return $this->username;
+    }
+    
+    public function getValidAppointment()
+    {
+        foreach($this->appointments as $a)
+            if($a->getValid())
+                return $a;
+        return null;
+    }
+
+    /**
+     * Set accept
+     *
+     * @param boolean $accept
+     *
+     * @return User
+     */
+    public function setAccept($accept)
+    {
+        $this->accept = $accept;
+
+        return $this;
+    }
+
+    /**
+     * Get accept
+     *
+     * @return boolean
+     */
+    public function isAccept()
+    {
+        return $this->accept;
+    }
+
+    /**
+     * Get accept
+     *
+     * @return boolean
+     */
+    public function getAccept()
+    {
+        return $this->accept;
+    }
+
+    /**
+     * Set picture
+     *
+     * @param \Application\UserBundle\Entity\Picture $picture
+     *
+     * @return User
+     */
+    public function setPicture(\Application\UserBundle\Entity\Picture $picture = null)
+    {
+        $this->picture = $picture;
+
+        return $this;
+    }
+
+    /**
+     * Get picture
+     *
+     * @return \Application\UserBundle\Entity\Picture
+     */
+    public function getPicture()
+    {
+        return $this->picture;
+    }
+
+    /**
+     * Set profession
+     *
+     * @param string $profession
+     *
+     * @return User
+     */
+    public function setProfession($profession)
+    {
+        $this->profession = $profession;
+
+        return $this;
+    }
+
+    /**
+     * Get profession
+     *
+     * @return string
+     */
+    public function getProfession()
+    {
+        return $this->profession;
+    }
+
+    /**
+     * Set company
+     *
+     * @param string $company
+     *
+     * @return User
+     */
+    public function setCompany($company)
+    {
+        $this->company = $company;
+
+        return $this;
+    }
+
+    /**
+     * Get company
+     *
+     * @return string
+     */
+    public function getCompany()
+    {
+        return $this->company;
+    }
+    
+    public function getLastTimeReport(){
+        return end($this->timereports);
+    }
+    
+
+    /**
+     * Add news
+     *
+     * @param \Intranet\NewsBundle\Entity\News $news
+     *
+     * @return User
+     */
+    public function addNews(\Intranet\NewsBundle\Entity\News $news)
+    {
+        $this->news[] = $news;
+
+        return $this;
+    }
+
+    /**
+     * Remove news
+     *
+     * @param \Intranet\NewsBundle\Entity\News $news
+     */
+    public function removeNews(\Intranet\NewsBundle\Entity\News $news)
+    {
+        $this->news->removeElement($news);
+    }
+
+    /**
+     * Get news
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getNews()
+    {
+        return $this->news;
+    }
+
+    /**
+     * Set parameter
+     *
+     * @param \Intranet\AppBundle\Entity\Parameter $parameter
+     *
+     * @return User
+     */
+    public function setParameter(\Intranet\AppBundle\Entity\Parameter $parameter = null)
+    {
+        $this->parameter = $parameter;
+
+        return $this;
+    }
+
+    /**
+     * Get parameter
+     *
+     * @return \Intranet\AppBundle\Entity\Parameter
+     */
+    public function getParameter()
+    {
+        return $this->parameter;
+    }
+
+    /**
+     * Add activityreport
+     *
+     * @param \Intranet\ActivityBundle\Entity\Activity $activityreport
+     *
+     * @return User
+     */
+    public function addActivityreport(\Intranet\ActivityBundle\Entity\Activity $activityreport)
+    {
+        $this->activityreports[] = $activityreport;
+
+        return $this;
+    }
+
+    /**
+     * Remove activityreport
+     *
+     * @param \Intranet\ActivityBundle\Entity\Activity $activityreport
+     */
+    public function removeActivityreport(\Intranet\ActivityBundle\Entity\Activity $activityreport)
+    {
+        $this->activityreports->removeElement($activityreport);
+    }
+
+    /**
+     * Get activityreports
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getActivityreports()
+    {
+        return $this->activityreports;
+    }
+}

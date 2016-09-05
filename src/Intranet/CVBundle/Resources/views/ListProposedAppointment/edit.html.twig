@@ -1,0 +1,43 @@
+{% extends "IntranetAppBundle::base.html.twig" %}
+
+{%block page_header %}Rdv{%endblock%}
+{%block page_description %}Plages horaires du conseiller{%endblock%}
+
+{% block body -%}
+    <div class="row">
+        <div class="col-md-12">
+              <!-- Horizontal Form -->
+              <div class="box box-info">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Rdvs</h3>
+                </div><!-- /.box-header -->
+                <!-- form start -->
+                    {{ form_start(edit_form, {'attr':{'class': 'form-horizontal'} }) }}
+                        
+                        <div class="form-group">
+                            <div class="col-sm-8">
+                                <ul class="rdvs" 
+                                    {# iterate over each existing tag and render its only field: name #}
+                                    {% for appointment in edit_form.appointments %}
+                                        <li>
+                                            <div class='form-group'>{{ form_label(appointment.date) }}
+                                            <div class='col-sm-10'>{{ form_widget(appointment.date) }}</div></div>
+                                            {{ form_label(appointment.valid) }}
+                                            {{ form_widget(appointment.valid) }}
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                       </div>
+                                
+                        {{ form_widget(edit_form.submit) }}
+                    
+                    {{ form_end(edit_form) }}
+                  <div class="box-body">
+                  </div>
+              </div>
+        </div>
+    </div>
+
+
+{% endblock %}

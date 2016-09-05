@@ -1,0 +1,30 @@
+{% extends "IntranetAppBundle::base.html.twig" %}
+
+{% block body -%}
+    <h1>Profile</h1>
+
+    <table class="record_properties">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Desiredsalary</th>
+                <td>{{ entity.desiredSalary }}</td>
+            </tr>
+            <tr>
+                <th>Disponibility</th>
+                <td>{{ entity.disponibility|date('Y-m-d H:i:s') }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('cv_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+</ul>
+{% endblock %}

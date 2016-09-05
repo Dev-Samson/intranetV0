@@ -1,0 +1,60 @@
+   
+    <div class="col-md-3">
+            
+        </div>
+        <div class="col-md-6">
+                <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Devenir {% if app.request.get('type')=="entreprise" %}Partenaire {%else %}Membre{%endif%}</h3>
+                </div><!-- /.box-header -->
+                <div class="box-body">
+                {{ form_errors(form.email) }}
+                {{ form_errors(form.plainPassword.first) }}
+                <form action="{{ path('fos_user_registration_register',{"type":app.request.get('type')}) }}" {{ form_enctype(form) }} method="POST" class="fos_user_registration_register">
+                  
+                  <div class="form-group has-feedback">
+                    {{ form_widget(form.firstname, {'attr': {'class': 'form-control','placeholder': 'form.firstname'|trans } }) }}
+                    <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                  </div>
+                  <div class="form-group has-feedback">
+                    {{ form_widget(form.lastname, {'attr': {'class': 'form-control','placeholder': 'form.lastname'|trans } }) }}
+                    <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                  </div>
+                  <div class="form-group has-feedback">
+                    {{ form_widget(form.email, {'attr': {'class': 'form-control','placeholder': 'form.email'|trans } }) }}
+                    <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                  </div>
+                  <div class="form-group has-feedback">
+                    {{ form_widget(form.phone, {'attr': {'class': 'form-control','placeholder': 'form.phone'|trans } }) }}
+                    <span class="glyphicon glyphicon-phone form-control-feedback"></span>
+                  </div>
+                  {% if app.request.get('type')=="entreprise" %}
+                  <div class="form-group has-feedback">
+                    {{ form_widget(form.company, {'attr': {'class': 'form-control','placeholder': 'form.company'|trans } }) }}
+                    <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                  </div>
+                   {%endif%}
+                    <div class="form-group has-feedback">
+                    {{ form_widget(form.plainPassword.first, {'attr': {'class': 'form-control','placeholder': 'form.password'|trans } }) }}
+                    <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                  </div>
+                    <div class="form-group has-feedback">
+                    {{ form_widget(form.plainPassword.second, {'attr': {'class': 'form-control','placeholder': 'form.password_confirmation'|trans } }) }}
+                    <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                  </div>
+                     {{form_rest(form) }}
+                  <div class="row">
+                    <div class="col-xs-8">
+                      &nbsp
+                    </div><!-- /.col -->
+                    <div class="col-xs-4">
+                        <button type="submit" id="_submit" name="_submit" class="btn btn-primary btn-block btn-flat" >{{ 'registration.submit'|trans }} </button>
+                    </div><!-- /.col -->
+                  </div>
+                </form>
+            </div>     
+            </div>   
+        </div>
+        <div class="col-md-3">
+            
+        </div>

@@ -1,0 +1,133 @@
+{% extends "IntranetAppBundle::base.html.twig" %}
+
+{%block page_header %}Profil{%endblock%}
+{%block page_description %}Informations du profil{%endblock%}
+
+{% block body -%}
+
+    <div class="row">
+        <div class="col-md-12">
+              <!-- Horizontal Form -->
+              <div class="box box-primary">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Profil</h3>
+                </div><!-- /.box-header -->
+                <!-- form start -->
+                  {{ form_start(edit_form, {'attr':{'class': 'form-horizontal'} }) }}
+                  <div class="box-body">
+                      
+                        <div class="form-group">
+                            {{form_label(edit_form.gender)}}
+                            <div class="col-sm-8">
+                                {{ form_widget(edit_form.gender) }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            {{form_label(edit_form.firstname)}}
+                            <div class="col-sm-8">
+                                {{ form_widget(edit_form.firstname) }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            {{form_label(edit_form.lastname)}}
+                            <div class="col-sm-8">
+                                {{ form_widget(edit_form.lastname) }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            {{form_label(edit_form.dateOfBirth)}}
+                            <div class="col-sm-8">
+                                {{ form_widget(edit_form.dateOfBirth) }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            {{form_label(edit_form.adress_num)}}
+                            <div class="col-sm-8">
+                                {{ form_widget(edit_form.adress_num) }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            {{form_label(edit_form.adress_locality)}}
+                            <div class="col-sm-8">
+                                {{ form_widget(edit_form.adress_locality) }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            {{form_label(edit_form.postal_code)}}
+                            <div class="col-sm-8">
+                                {{ form_widget(edit_form.postal_code) }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            {{form_label(edit_form.city)}}
+                            <div class="col-sm-8">
+                                {{ form_widget(edit_form.city) }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            {{form_label(edit_form.phone)}}
+                            <div class="col-sm-8">
+                                {{ form_widget(edit_form.phone) }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            {{form_label(edit_form.cellphone)}}
+                            <div class="col-sm-8">
+                                {{ form_widget(edit_form.cellphone) }}
+                            </div>
+                        </div>
+                       {# <div class="form-group">
+                            {{form_label(edit_form.profession)}}
+                            <div class="col-sm-8">
+                                {{ form_widget(edit_form.profession) }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            {{form_label(edit_form.website)}}
+                            <div class="col-sm-8">
+                                {{ form_widget(edit_form.website) }}
+                            </div>
+                        </div>#}
+                        <div class="form-group">
+                            {{form_label(edit_form.workingFunction)}}
+                            <div class="col-sm-8">
+                                {{ form_widget(edit_form.workingFunction) }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            {{form_label(edit_form.picture)}}
+                            <div class="col-sm-8">
+                                {{ form_widget(edit_form.picture) }}
+                            </div>
+                        </div>
+                      
+                  </div>
+                    <div class="box-footer">
+                      {{ form_widget(edit_form.submit,{'attr':{'class':'btn btn-primary pull-left'} }) }}
+                    </div>
+                  {{ form_end(edit_form) }}
+              </div>
+        </div>
+    </div>
+    {% render url("sonata_user_profile_edit_authentication") %}
+    
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{asset('bundles/intranetapp/css/adminLTE/plugins/datepicker/datepicker3.css')}}">
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript" src="{{asset('bundles/intranetapp/js/adminLTE/plugins/datepicker/bootstrap-datepicker.js')}}"> </script>
+    <script type="text/javascript" src="{{asset('bundles/intranetapp/js/adminLTE/plugins/datepicker/bootstrap-datepicker.fr.js')}}"> </script>
+    <script type="text/javascript" >
+       
+        $( document).delegate( ".datepicker","focusin", function() {
+           $(this).datepicker({
+               format: 'dd/mm/yyyy',
+           });
+        });
+        
+    
+    </script>
+{% endblock %}

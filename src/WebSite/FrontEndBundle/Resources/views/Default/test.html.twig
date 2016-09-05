@@ -1,0 +1,97 @@
+<html>
+    <head>
+        
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="{{asset('bundles/websitefrontend/js/jquery.cookie.js')}}"></script>
+    
+
+    <script type="text/javascript">
+
+        
+        
+        $(document).ready(function(){
+           
+           // Setup an event listener to make an API call once auth is complete
+            function onLinkedInAuthPost() {
+         // this must be the same domain as the application, where we write the cookie
+                    /*$.post('https://localhost:82/hrinsight/web/app_dev.php/test2',function()
+                    {
+                        
+                    });*/
+                    var title = $("#title");
+                    var description = $("#description");
+                    var bodyContent = description;
+                    
+                    var url = "/people/~/current-status";
+                    
+                    IN.API.Raw().url(url).method("POST").body(JSON.stringify(bodyContent)).result(resultCallback).error(function(error){console.log("erreur: ");console.log(error)});
+                    
+                    console.log('test');
+               }
+               
+               function onLinkedInAuth(){
+                   $.post('https://localhost:82/hrinsight/web/app_dev.php/test2');
+               }
+               
+               function resultCallback(data)
+               {
+                   console.log("ok");
+                   console.log(data);
+               }
+
+            // Handle the successful return from the API call
+            function onSuccess(data) {
+                //console.log(data);
+                console.debug(IN.ENV);  
+                //onLinkedInAuthPost();
+            }
+
+            // Handle an error response from the API call
+            function onError(error) {
+                console.log(error);
+            }
+            
+            // Use the API call wrapper to request the member's basic profile data
+            function getProfileData() {
+                IN.API.Raw("/people/~").result(onSuccess).error(onError);
+            }
+            $("#pwet").on('change',function(){
+                IN.UI.Authorize().place();
+                IN.Event.on(IN, "auth", onLinkedInAuth); 
+            });
+            $("#close").on('click',function(){
+                //console.log($.cookie('linkedin_oauth_#7768zhwyhxqy2x'));
+                IN.User.logout();
+            });
+            
+            
+            
+            
+            
+            
+           /*  $("#facebook").on('change',function(){
+                myFacebookLogin();
+            });
+            function myFacebookLogin() {
+                FB.login(function(){}, {scope: 'publish_actions'});
+            }*/
+        });
+    </script>
+    </head>
+    <body>
+<form id="form1" runat="server" action="{{path('envoi')}}" method="post">
+    <input type="text" id="title" value="titre1" name="title" /><br/>
+    <textarea id="description"  name="description" > blablabla bla bla bla bla bla test</textarea><br/>
+    <input type="checkbox" id="pwet" />LINKEDIN<br/>
+    <input type="checkbox" id="facebook" />FACEBOOK<br/>
+    <input type="button" id="close" value="close" />
+    
+    <input type="submit" /> 
+</form> 
+    <script type="text/javascript" src="//platform.linkedin.com/in.js">
+        api_key: 7768zhwyhxqy2x
+        authorize: true
+        credentials_cookie: true
+    </script>
+    </body>
+</html>

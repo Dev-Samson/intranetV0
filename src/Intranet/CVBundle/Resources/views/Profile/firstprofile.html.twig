@@ -1,0 +1,145 @@
+{% extends 'IntranetAppBundle::base.html.twig' %}
+
+{%block title %}Espace candidat{%endblock%}
+{%block page_header %}Booster votre carrière... 1<sup><small>ère</small></sup> étape{%endblock%}
+{%block page_description %}{%endblock%}
+
+{% block body -%}
+    
+    <div class="row">
+        <div class="col-md-8">
+              <!-- Horizontal Form -->
+              <div class="box box-primary">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Votre parcours professionel</h3>
+                </div><!-- /.box-header -->
+                <!-- form start -->
+                  {{ form_start(form, {'attr':{'class': 'form-horizontal'} }) }}
+                  <div class="box-body">
+                      {{form_errors(form)}}
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label required">Déposer votre CV (doc/docx)</label>
+                        <div class="col-sm-8">
+                            {{ form_widget(form.cv) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-12 control-label">Parler nous de vos expériences professionelles.</label>
+                        
+                    </div>
+                        <ul class="experiences"  data-prototype="
+                                <div class='form-group'>{{ form_label(form.experiences.vars.prototype.title)|e }}
+                                <div class='col-sm-10'>{{ form_widget(form.experiences.vars.prototype.title)|e }}</div></div>
+                                <div class='form-group'>{{ form_label(form.experiences.vars.prototype.place)|e }}
+                                <div class='col-sm-10'>{{ form_widget(form.experiences.vars.prototype.place)|e }}</div></div>
+                                <div class='form-group'>{{ form_label(form.experiences.vars.prototype.start)|e }}
+                                <div class='col-sm-4'>{{ form_widget(form.experiences.vars.prototype.start)|e }}</div>
+                                {{ form_label(form.experiences.vars.prototype.end)|e }}
+                                <div class='col-sm-4'>{{ form_widget(form.experiences.vars.prototype.end)|e }}</div></div>
+                                <div class='form-group'>{{ form_label(form.experiences.vars.prototype.role)|e }}
+                                <div class='col-sm-10'>{{ form_widget(form.experiences.vars.prototype.role)|e }}</div></div>
+                                <div class='form-group'>{{ form_label(form.experiences.vars.prototype.activities)|e }}
+                                <div class='col-sm-10'>{{ form_widget(form.experiences.vars.prototype.activities)|e }}</div></div>
+                                <div class='form-group'>{{ form_label(form.experiences.vars.prototype.environment)|e }}
+                                <div class='col-sm-10'>{{ form_widget(form.experiences.vars.prototype.environment)|e }}</div></div>
+                                ">
+                        </ul>
+                    <div class="form-group">
+                        <label class="col-sm-12 control-label">Avez-vous des projets personnels?</label>
+                    </div>
+                        <ul class="personnalProjects"  data-prototype="
+                                <div class='form-group'>{{ form_label(form.personnalProjects.vars.prototype.title)|e }}
+                                <div class='col-sm-10'>{{ form_widget(form.personnalProjects.vars.prototype.title)|e }}</div></div>
+                                <div class='form-group'>{{ form_label(form.personnalProjects.vars.prototype.description)|e }}
+                                <div class='col-sm-10'>{{ form_widget(form.personnalProjects.vars.prototype.description)|e }}</div></div>
+                                ">
+                        </ul>
+                  </div>
+                                
+                  <div class="box-footer">
+                    {{ form_widget(form.submit,{'attr':{'class':'btn btn-primary pull-right'} }) }}
+                  </div>
+                    {%do form.experiences.setRendered(true)%} 
+                    {%do form.personnalProjects.setRendered(true)%} 
+                  {{ form_end(form)}}
+              </div>
+        </div>
+        
+        <div class="col-md-4">
+              <!-- Horizontal Form -->
+              <div class="box box-primary">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Etape 1: Préqualification</h3>
+                </div><!-- /.box-header -->
+                <!-- form start -->
+                  <div class="box-body" style="text-align:center; ">
+                      <img style="width: 60%;" src="{{asset('bundles/intranetcv/images/circular1.png')}}" />
+                      
+                      <div >
+                          <input type="hidden" readonly class="knob" value="33%" data-skin="tron" data-thickness="0.2" data-width="120" data-height="120" data-fgcolor="#f56954" style="">
+                      
+                      </div>
+                      
+                  </div>
+              </div>
+              <!-- Horizontal Form -->
+              <div class="box box-primary">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Aide / Exemple</h3>
+                </div><!-- /.box-header -->
+                <!-- form start -->
+                  <div class="box-body">
+                      <b>CV => word</b><br/><br/>
+                      
+                      <b>Intitulé du poste:</b> Développeur web<br/>
+                      <b>Début:</b> 10/01/2001<br/>
+                      <b>Fin:</b> 01/09/2007<br/>
+                      <b>Role:</b> <br/>
+                      <b>Activités:</b> <br/>
+                            - Analyse et recueil des besoins client<br/>
+                            - Réalisation d'interfaces graphiques, backend, frontend<br/>
+                      <b>Résultat:</b> <br/>
+                      <b>Environnement:</b> Windows, Apache, Mysql<br/>
+                      
+                      
+                  </div>
+              </div>
+        </div>
+    </div>
+
+{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{asset('bundles/intranetapp/css/adminLTE/plugins/datepicker/datepicker3.css')}}">
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript" src="{{asset('bundles/intranetcv/js/profile.js')}}"> </script>
+    <script type="text/javascript" src="{{asset('bundles/intranetcv/js/jquery.knob.js')}}"> </script>
+    <script type="text/javascript" src="{{asset('bundles/intranetapp/js/adminLTE/plugins/datepicker/bootstrap-datepicker.js')}}"> </script>
+    <script type="text/javascript" src="{{asset('bundles/intranetapp/js/adminLTE/plugins/datepicker/bootstrap-datepicker.fr.js')}}"> </script>
+    <script type="text/javascript" >
+       
+        $( document).delegate( ".datepicker","focusin", function() {
+           $(this).datepicker({
+               format: 'dd/mm/yyyy',
+           });
+           
+           
+        });
+        
+        $(document).ready(function(){
+            var click=true;
+            $("#intranet_cvbundle_profile_cv_file").change(function() {
+                if(click){
+                    $(".add_experience_link").click();
+                    click=false;
+                }
+            });
+            $( document).delegate( ".tiptool","mouseover", function() {
+                $(this).tooltip({'trigger':'focus', 'title': $(this).attr('tooltip-data')});
+            });
+            
+        });
+    
+    </script>
+{% endblock %}

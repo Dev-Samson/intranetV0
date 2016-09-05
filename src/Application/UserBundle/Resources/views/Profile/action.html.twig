@@ -1,0 +1,27 @@
+{% extends "IntranetAppBundle::base.html.twig" %}
+
+{%block page_header %}Mon compte{%endblock%}
+{%block page_description %}Informations de connexion{%endblock%}
+
+{% block body -%}
+
+{% block sonata_page_breadcrumb %}
+    {% if breadcrumb_context is not defined %}
+        {% set breadcrumb_context = 'user_index' %}
+    {% endif %}
+    <div class="row-fluid clearfix">
+        {{ sonata_block_render_event('breadcrumb', { 'context': breadcrumb_context, 'current_uri': app.request.requestUri }) }}
+    </div>
+{% endblock %}
+
+<div class="sonata-user-show row row-fluid">
+
+    <div class="span10 col-lg-10">
+        {% include 'SonataCoreBundle:FlashMessage:render.html.twig' %}
+
+        {% block sonata_profile_content '' %}
+    </div>
+
+</div>
+
+{% endblock %}

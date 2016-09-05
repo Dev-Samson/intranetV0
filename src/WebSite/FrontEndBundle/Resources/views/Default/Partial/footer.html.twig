@@ -1,0 +1,25 @@
+		<div class="row bg-black2 footer">
+                  <div class="col-md-3">
+                      &nbsp
+		  </div>
+		  <div class="col-md-3">
+                      {% for category in categories %}
+                            <div><a href="{{path('showArticle',{title : category.title})}}">{{category.title}}</a></div>
+                      {% endfor %}
+		  </div>
+		  <div class="col-md-3">
+                        <div><a href="#">HR Insight</a></div>
+			<p>
+				HR Insight <br/>
+				1 Rue de la Chebarde <br/>
+                                TSA 60125 - CS 60026 <br/>
+                                63178 AUBIERE cedex <br/>
+			</p>
+		  </div>
+                  <div class="col-md-3">
+                      &nbsp
+		  </div>
+		</div>
+		<div class="row bg-black2 color-white center footer2">
+                    <a href="{{path('mremi_contact_form')}}">Contact</a> - Informations légales - <a href="{{path('plan')}}">Plan du site</a>
+		</div>

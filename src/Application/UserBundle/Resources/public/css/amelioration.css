@@ -1,0 +1,40 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 6 oct. 2015, 12:30:07
+    Author     : groumeau
+*/
+
+#actionuser{
+    margin-left: 5px;
+    margin-bottom: 5px;
+}
+
+#legendAskUser{
+    margin-bottom:5px;
+}
+
+#actionuser a{
+    text-decoration: none;
+    color:black;
+    width:100%;
+    font-style: italic;
+    margin-bottom: 5px;
+    font-size:16px;
+    
+}
+#actionuser a:hover{
+    color:red;
+    font-weight: bold;
+}
+
+#actionuser a span{
+    padding-left: 5px;
+}
+
+#askActionUser{
+    padding-left: 5px;
+}

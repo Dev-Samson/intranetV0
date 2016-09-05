@@ -1,0 +1,99 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="file.ext">
+        <body>
+            <trans-unit id="1">
+                <source>Gender</source>
+                <target>Genre</target>
+            </trans-unit>
+            <trans-unit id="2">
+                <source>Firstname</source>
+                <target>Prénom</target>
+            </trans-unit>
+            <trans-unit id="3">
+                <source>Lastname</source>
+                <target>Nom</target>
+            </trans-unit>
+            <trans-unit id="4">
+                <source>Birthday</source>
+                <target>Date de naissance</target>
+            </trans-unit>
+            <trans-unit id="5">
+                <source>Number phone</source>
+                <target>Numéro de téléphone</target>
+            </trans-unit>
+            <trans-unit id="6">
+                <source>Desired salary</source>
+                <target>Salaire désiré</target>
+            </trans-unit>
+            <trans-unit id="7">
+                <source>Disponibility</source>
+                <target>Disponibilité</target>
+            </trans-unit>
+            <trans-unit id="8">
+                <source>Professional status</source>
+                <target>Status Professionel</target>
+            </trans-unit>
+            <trans-unit id="9">
+                <source>Type contract</source>
+                <target>Type de contrat</target>
+            </trans-unit>
+            <trans-unit id="10">
+                <source>Nature contract</source>
+                <target>Nature du contrat</target>
+            </trans-unit>
+            <trans-unit id="11">
+                <source>Mobility</source>
+                <target>Mobilité</target>
+            </trans-unit>
+            <trans-unit id="12">
+                <source>Languages</source>
+                <target>Langages</target>
+            </trans-unit>
+            <trans-unit id="13">
+                <source>Language</source>
+                <target>Langage</target>
+            </trans-unit>
+            <trans-unit id="14">
+                <source>Level</source>
+                <target>Niveau</target>
+            </trans-unit>
+            <trans-unit id="15">
+                <source>Studies</source>
+                <target>Etudes</target>
+            </trans-unit>
+            <trans-unit id="16">
+                <source>Title</source>
+                <target>Intitulé</target>
+            </trans-unit>
+            <trans-unit id="17">
+                <source>Graduation date</source>
+                <target>Date d'obtention</target>
+            </trans-unit>
+            <trans-unit id="18">
+                <source>Start</source>
+                <target>Début</target>
+            </trans-unit>
+            <trans-unit id="19">
+                <source>End</source>
+                <target>Fin</target>
+            </trans-unit>
+            <trans-unit id="20">
+                <source>Sector</source>
+                <target>Secteur d'activité</target>
+            </trans-unit>
+            <trans-unit id="21">
+                <source>Professional function</source>
+                <target>Fonction professionel</target>
+            </trans-unit>
+            <trans-unit id="22">
+                <source>Place</source>
+                <target>Lieu</target>
+            </trans-unit>
+            <trans-unit id="23">
+                <source>Activities</source>
+                <target>Acitivités</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

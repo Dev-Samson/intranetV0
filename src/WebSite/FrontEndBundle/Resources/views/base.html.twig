@@ -1,0 +1,34 @@
+{% extends "WebSiteFrontEndBundle::base_layout.html.twig" %}
+
+{% block body %}
+    <div class="row page2" >
+	<div class="col-md-3 col-lg-3 bg-white hidden-xs hidden-sm">
+            image
+			
+	</div>
+        <div class="col-xs-12 col-sm-12 bg-white hidden-md hidden-lg">
+            &nbsp  
+	</div>
+	<div class="col-md-6 bg-white">
+            <br/><br/>
+            {% block body_base %}
+            {% endblock %}
+        </div>
+	<div class="col-md-3 bg-white">
+            <div id="aside">
+                {% block item_base %}
+                 {% endblock %}
+            </div>
+            <!--<div id="aside">
+                 <p class="buttonContainer">
+                    <a href="../inside-hrc/acces-lespace-membership/index.html" class="buttonMembership"><span class="icon"></span><strong>Membership</strong> Connectez-vous</a>
+                 </p>
+                 <p class="buttonContainer">
+                    <a href="../inside-hrc/acces-lespace-partnership/index.html" class="buttonPartnership"><span class="icon"></span><strong>Partnership</strong> Connectez-vous</a>
+                 </p>
+             </div>     
+             <div class="spacer"></div>-->
+			  
+	</div>
+    </div>
+{% endblock %}

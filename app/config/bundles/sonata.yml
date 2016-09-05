@@ -1,0 +1,77 @@
+sonata_user:
+    security_acl: true
+    manager_type: orm # can be orm or mongodb
+
+sonata_block:
+    default_contexts: [cms]
+    blocks:
+        sonata.user.block.menu:    # used to display the menu in profile pages
+        sonata.user.block.account: # used to display menu option (login option)
+        sonata.block.service.text:
+        #sonata.user.block.menu:
+        # Enable the SonataAdminBundle block
+        sonata.admin.block.admin_list:
+            contexts:   [admin]
+        sonata.admin.block.search_result:
+            contexts:   [admin]
+        # Your other blocks
+
+sonata_admin:
+    title:      Administration
+    title_logo: bundles/applicationuser/images/hrconsulting.png
+    templates:
+        layout:    ApplicationUserBundle::standard_layout.html.twig
+        user_block: ApplicationUserBundle:Core:user_block.html.twig
+    dashboard:
+        groups:
+            WebSite:
+                items:
+                    - web_site_back_end.admin.article
+                    - web_site_back_end.admin.news
+                    - web_site_back_end.admin.logo
+                    - web_site_back_end.admin.image_slider
+                roles: [ROLE_WEBSITE]
+            User:
+                items:
+                    - application_user.admin.user
+                roles: [ROLE_SUPER_ADMIN]
+            CV:
+                items:
+                    - intranet_cv.admin.cv
+                    - intranet_cv.admin.proposed_appointment
+                    - intranet_cv.admin.country
+                    - intranet_cv.admin.professional_status
+                    - intranet_cv.admin.category_skill
+                roles: [ROLE_SUPER_ADMIN]
+            Job:
+                items:
+                    - intranet_job.admin.job
+                roles: [ROLE_SUPER_ADMIN]
+            News:
+                items:
+                    - intranet_news.admin.category
+                    - intranet_news.admin.news
+                roles: [ROLE_SUPER_ADMIN]
+            Company:
+                items:
+                    - intranet_entreprise.admin.company
+                    - intranet_entreprise.admin.project
+                    - intranet_entreprise.admin.task
+                roles: [ROLE_SUPER_ADMIN]
+            TimeReport:
+                items:
+                    - intranet_calendar.admin.event
+                    - intranet_calendar.admin.type
+                roles: [ROLE_SUPER_ADMIN]
+        
+        blocks:
+            -
+                position: left
+                type: sonata.admin.block.admin_list
+                settings:
+                    groups:  [WebSite,CV,News]
+            -
+                position: right
+                type: sonata.admin.block.admin_list
+                settings:
+                    groups:  [User,Job,Company,TimeReport]

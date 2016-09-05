@@ -1,0 +1,30 @@
+services:
+    intranet_cv.admin.country:
+        class: Intranet\CVBundle\Admin\CountryAdmin
+        arguments: [~, Intranet\CVBundle\Entity\Country, IntranetCVBundle:CountryAdmin]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: admin, label: Country}
+
+    intranet_cv.admin.professional_status:
+        class: Intranet\CVBundle\Admin\ProfessionalStatusAdmin
+        arguments: [~, Intranet\CVBundle\Entity\ProfessionalStatus, IntranetCVBundle:ProfessionalStatusAdmin]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: admin, label: ProfessionalStatus}
+
+    intranet_cv.admin.cv:
+        class: Intranet\CVBundle\Admin\CVAdmin
+        arguments: [~, Intranet\CVBundle\Entity\CV, IntranetCVBundle:CVAdmin]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: admin, label: CV}
+
+    intranet_cv.admin.proposed_appointment:
+        class: Intranet\CVBundle\Admin\ProposedAppointmentAdmin
+        arguments: [~, Intranet\CVBundle\Entity\ProposedAppointment, IntranetCVBundle:ProposedAppointmentAdmin]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: admin, label: ProposedAppointment}
+
+    intranet_cv.admin.category_skill:
+        class: Intranet\CVBundle\Admin\CategorySkillAdmin
+        arguments: [~, Intranet\CVBundle\Entity\CategorySkill, IntranetCVBundle:CategorySkillAdmin]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: admin, label: CategorySkill}

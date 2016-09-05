@@ -1,0 +1,17 @@
+<ul class="nav navbar-nav navbar-left">
+    {% for category in categories %}
+        {%if category.childrens | length >1 %}
+            <li class="dropdown">
+                <a href="{%if category.description is not null %}{{path('showArticle',{'title':category.title})}}{%else%}#{%endif%}" class="dropdown-toggle">{{category.title}} 
+                    <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    {% render(controller("WebSiteFrontEndBundle:Default:subMenu", {'article' : category})) %}
+                </ul>
+            </li>
+        {% else %}
+            <li><a href="{%if category.description is not null %}{{path('showArticle',{'title':category.title})}}{%else%}#{%endif%}">{{category.title}}</a></li>
+        {% endif %}	
+    	
+    {% endfor %}		
+</ul>

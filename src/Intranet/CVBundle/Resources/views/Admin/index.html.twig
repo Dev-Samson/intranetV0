@@ -1,0 +1,75 @@
+{% extends "IntranetAppBundle::base.html.twig" %}
+
+{%block page_header %}Nouveaux Profils{%endblock%}
+{%block page_description %}Liste des profils en cours de validation{%endblock%}
+
+{% block body -%}
+    
+    <div class="row">
+        <div class="col-md-6">
+        
+            <div class="box">
+                <div class="box-header">
+                  <h3 class="box-title">Nouveaux membres en attente de validation</h3>
+                </div><!-- /.box-header -->
+                <div class="box-body no-padding">
+                  <table class="table table-striped">
+                    <tbody><tr>
+                      <th>Prénom</th>
+                      <th>Nom</th>
+                      <th>Date de naissance</th>
+                      <th>Action</th>
+                    </tr>
+                    
+                    {%for cv in cvs%}
+                            <tr>
+                              <td>{{cv.profile.user.Firstname}}</td>
+                              <td>{{cv.profile.user.Lastname}}</td>
+                              <td>
+                                {{cv.profile.user.dateofbirth|date('d/m/Y')}}
+                              </td>
+                              <td><a href="{{path('intranet_cv_inprogress_profil',{'id': cv.profile.user.id})}}">Voir</a></td>
+                            </tr>
+                    {% endfor %}
+                    
+                  </tbody></table>
+                </div><!-- /.box-body -->
+              </div>
+        
+        </div>
+        <div class="col-md-6">
+        
+            <div class="box">
+                <div class="box-header">
+                  <h3 class="box-title">Membres en attente d'un rdv</h3>
+                </div><!-- /.box-header -->
+                <div class="box-body no-padding">
+                  <table class="table table-striped">
+                    <tbody><tr>
+                      <th>Prénom</th>
+                      <th>Nom</th>
+                      <th>Action</th>
+                    </tr>
+                    
+                    {%for candidat in acceptCandidats%}
+                        {%if candidat.appointments|length==0 %}
+                            <tr>
+                              <td>{{candidat.Firstname}}</td>
+                              <td>{{candidat.Lastname}}</td>
+                              <td><a href="{{path('intranet_cv_appointment_new',{'id': candidat.id})}}">Donner des rdvs</a></td>
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                    
+                  </tbody></table>
+                </div><!-- /.box-body -->
+              </div>
+        
+        </div>
+    </div>
+    
+    
+    
+    
+    
+{%endblock%}

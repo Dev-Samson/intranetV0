@@ -1,0 +1,28 @@
+services:
+    web_site_back_end.admin.article:
+        class: WebSite\BackEndBundle\Admin\ArticleAdmin
+        arguments: [~, WebSite\BackEndBundle\Entity\Article, WebSiteBackEndBundle:ArticleAdmin]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: admin, label: Article}
+
+    web_site_back_end.admin.news:
+        class: WebSite\BackEndBundle\Admin\NewsAdmin
+        arguments: [~, WebSite\BackEndBundle\Entity\News, WebSiteBackEndBundle:NewsAdmin]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: admin, label: News}
+
+    web_site_back_end.admin.logo:
+        class: WebSite\BackEndBundle\Admin\LogoAdmin
+        arguments: [~, WebSite\BackEndBundle\Entity\Logo, WebSiteBackEndBundle:LogoAdmin]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: admin, label: Logo}
+
+    web_site_back_end.admin.image_slider:
+        class: WebSite\BackEndBundle\Admin\ImageSliderAdmin
+        arguments: [~, WebSite\BackEndBundle\Entity\ImageSlider, WebSiteBackEndBundle:ImageSliderAdmin]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: admin, label: ImageSlider}
+
+    linkedin:
+      class: WebSite\BackEndBundle\Services\LinkedInService
+      arguments: ['7768zhwyhxqy2x', 'c0OnAcJVjcoWsRVz', 'r_basicprofile,r_emailaddress,w_share']
